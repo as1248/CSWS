@@ -1,3 +1,5 @@
+#!/user/bin/bash
+
 H_SendPublickey()
 {
     local keyName=$1
