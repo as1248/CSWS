@@ -1,19 +1,16 @@
 import axios from "axios";
 import { useState } from "react";
 import { useParams, useNavigate, redirect } from "react-router-dom";
-import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { baseUrl } from "../../../Atoms";
 
 const InstanceDescription = ({data, domainName, setInstanceDetail}) => {
-  const [BASEURL,] = useRecoilState(baseUrl);
   const navigate = useNavigate();
   const [IOption, setIOption] = useState(false);
   const {instanceId} = useParams();
   //인스턴스 시작
   const instanceStart = () => {
     try{
-      axios.post(BASEURL + '/instances/start', {instanceId}).then(setInstanceDetail(prev=>({...prev, state: 'running'})));
+      axios.post('/instances/start', {instanceId}).then(setInstanceDetail(prev=>({...prev, state: 'running'})));
     } catch (error) {
       console.error(error);
     };
@@ -22,7 +19,7 @@ const InstanceDescription = ({data, domainName, setInstanceDetail}) => {
   //인스턴스 중지
   const instanceStop = () => {
     try{
-      axios.post(BASEURL + '/instances/stop', {instanceId}).then(setInstanceDetail(prev=>({...prev, state: 'stopped'})));
+      axios.post('/instances/stop', {instanceId}).then(setInstanceDetail(prev=>({...prev, state: 'stopped'})));
     } catch (error) {
       console.error(error);
     };
@@ -31,7 +28,7 @@ const InstanceDescription = ({data, domainName, setInstanceDetail}) => {
   //인스턴스 재부팅
   const instanceRestart = () => {
     try{
-      axios.post(BASEURL + '/instances/restart', {instanceId}).then(setInstanceDetail(prev=>({...prev, state: 'running'})));
+      axios.post('/instances/restart', {instanceId}).then(setInstanceDetail(prev=>({...prev, state: 'running'})));
     } catch (error) {
       console.error(error);
     };
@@ -40,7 +37,7 @@ const InstanceDescription = ({data, domainName, setInstanceDetail}) => {
   //인스턴스 종료
   const instanceDelete = () => {
     try{
-      axios.post(BASEURL + '/instances/delete', {instanceId}).then(redirect('/dashboard'));
+      axios.post('/instances/delete', {instanceId}).then(redirect('/dashboard'));
     } catch (error) {
       console.error(error);
     };

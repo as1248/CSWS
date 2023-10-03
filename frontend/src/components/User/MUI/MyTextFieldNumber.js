@@ -5,13 +5,10 @@ import MyButton from "./MyButton";
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Timer from '../VerifyEmail/Timer';
-import { useRecoilState } from "recoil";
-import {baseUrl} from "../../../Atoms"
 import axios from 'axios';
 
 
 const MyTextFieldNumber = ({ email, onNumberValidChange }) => {
-  const [BASEURL,] = useRecoilState(baseUrl);
   const [showEmailField, setShowEmailField] = useState(false);
   const [resetKey, setResetKey] = useState(0);
   const [textFieldValue, setTextFieldValue] = useState('');
@@ -26,7 +23,7 @@ const MyTextFieldNumber = ({ email, onNumberValidChange }) => {
       setResetKey(resetKey + 1);
       setTimerExpired(false);
       window.alert("메일을 다시 전송하였습니다!");
-      axios.get(BASEURL+'/register/verification', { params: { email: email } })
+      axios.get('/register/verification', { params: { email: email } })
       .then(response => {
       })
       .catch(error => {
@@ -42,7 +39,7 @@ const showAlert = () => {
   } else if (textFieldValue.trim() === '') {
     window.alert("인증번호를 입력해주세요!");
   } else {
-    axios.post(BASEURL+'/register/verification', {authNumber : textFieldValue, email:email})
+    axios.post('/register/verification', {authNumber : textFieldValue, email:email})
       .then(response => {
         if (response.data.success) {
           window.alert("인증이 완료되었습니다!");

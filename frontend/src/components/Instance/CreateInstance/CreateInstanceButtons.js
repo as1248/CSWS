@@ -1,18 +1,15 @@
 import axios from "axios";
 import styled from "styled-components";
 import { useNavigate, redirect } from "react-router-dom";
-import { useRecoilState } from "recoil";
-import { baseUrl } from "../../../Atoms";
 
 //인스턴스 생성 버튼 누르면 API 요청 하게 함수 수정하기
 const CreateInstanceButtons = ({data, validate}) => {
   const navigate = useNavigate();
-  const [BASEURL,] = useRecoilState(baseUrl);
     //인스턴스 생성
   const createInstance = () => {
       if(validate){
         try{
-        axios.post(BASEURL + '/instances/creation', data).then(setTimeout(()=>{
+        axios.post('/instances/creation', data).then(setTimeout(()=>{
         redirect('/dashboard');
         navigate('/dashboard');
         },1000));

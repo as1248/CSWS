@@ -6,7 +6,7 @@ import Container from '@mui/material/Container';
 import MyBox from '../../components/User/MUI/MyBox';
 import InputAdornment from '@mui/material/InputAdornment';
 import { useRecoilState } from "recoil";
-import { baseUrl, userState } from "../../Atoms"
+import { userState } from "../../Atoms"
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import MyButton from "../../components/User/MUI/MyButton";
@@ -19,7 +19,6 @@ import Header from'../../components/Header';
 
 const Login = () => {
   const [, setUserState] = useRecoilState(userState);
-  const [BASEURL,] = useRecoilState(baseUrl);
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [pw, setPw] = useState('');
@@ -58,7 +57,7 @@ const Login = () => {
   }
   
   const onClickConfirmButton = () => {
-    axios.post(BASEURL + '/login', { username: email, password: pw }, {withCredentials: true})
+    axios.post('/login', { username: email, password: pw }, {withCredentials: true})
       .then(response => {
         if (response.data.success) {
           const accessToken = response.headers.Authorization;

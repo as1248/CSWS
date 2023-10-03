@@ -13,8 +13,6 @@ import MyAvatar from '../../components/User/MUI/MyAvatar';
 import MyTextFieldNumber from '../../components/User/MUI/MyTextFieldNumber';
 import MyTextFieldUnivStu from '../../components/User/MUI/MyTextFieldUnivStu';
 import MyTextFieldDeptStu from '../../components/User/MUI/MyTextFieldDeptStu';
-import { useRecoilState } from "recoil";
-import {baseUrl} from "../../Atoms"
 import axios from 'axios';
 import Header from'../../components/Header';
 
@@ -31,7 +29,6 @@ const User = {
 }
 
 const SignUp = () => {
-  const [BASEURL,] = useRecoilState(baseUrl);
   const [NumberValid, setNumberValid] = useState(false);
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
@@ -83,7 +80,7 @@ const SignUp = () => {
     if(pw !== pw2){
       alert('비밀번호를 다시 확인해주세요.');
     } else {
-      axios.post(BASEURL+'/register/student', { username: email, password: pw, universityId: UnivStu , departmentId: DeptStu,  })
+      axios.post('/register/student', { username: email, password: pw, universityId: UnivStu , departmentId: DeptStu,  })
         .then(response => {
           navigate('/login');
         })
@@ -113,7 +110,7 @@ const SignUp = () => {
       } else {
         setShowEmailField(true);
         setSendButtonDisabled(true);
-        axios.get(BASEURL+'/register/verification',
+        axios.get('/register/verification',
                     { params: { email: email } },
                     { withCredentials: true })
           .then(response => {

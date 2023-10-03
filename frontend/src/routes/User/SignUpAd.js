@@ -11,10 +11,8 @@ import MyButton from "../../components/User/SignUpAd/MyButton";
 import axios from 'axios';
 import Grid from '@mui/material/Grid';
 import MyTextFieldNumber from '../../components/User/MUI/MyTextFieldNumber';
-import {baseUrl} from "../../Atoms"
 import styled from 'styled-components'
 import { useNavigate } from "react-router-dom";
-import { useRecoilState } from "recoil";
 import MyTextFieldUnivStu from '../../components/User/MUI/MyTextFieldUnivStu';
 import MyTextFieldDeptStu from '../../components/User/MUI/MyTextFieldDeptStu';
 import Header from'../../components/Header';
@@ -31,7 +29,6 @@ const User = {
 
   
 const SignUpAd = () => {
-    const [BASEURL,] = useRecoilState(baseUrl);
     const [NumberValid, setNumberValid] = useState(false);
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
@@ -90,7 +87,7 @@ const SignUpAd = () => {
       }
       else {
       console.log("실행됨");
-        axios.post(BASEURL+'/register/manager', { username: email, password: pw, universityId: UnivStu , departmentId: DeptStu, phone: Tel})
+        axios.post('/register/manager', { username: email, password: pw, universityId: UnivStu , departmentId: DeptStu, phone: Tel})
         .then(response => {
           navigate('/login');
         })
@@ -123,7 +120,7 @@ const SignUpAd = () => {
       } else {
         setShowEmailField(true);
         setSendButtonDisabled(true);
-        axios.get(BASEURL+'/register/verification', { params: { email: email } })
+        axios.get('/register/verification', { params: { email: email } })
           .then(response => {
           })
           .catch(error => {
